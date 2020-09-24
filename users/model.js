@@ -9,7 +9,7 @@ var schema = new Schema({
     age: Number,
     favorite: {type: Schema.ObjectId, ref: "songs"}    
 }, {collection: 'users'})
-
+// una base de datos con dos colecciones
 mongoose.connect('mongodb+srv://MatiasRivas:okayibelieveyou@prueba-db.jozch.gcp.mongodb.net/users?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -19,3 +19,11 @@ mongoose.connect('mongodb+srv://MatiasRivas:okayibelieveyou@prueba-db.jozch.gcp.
 var users = mongoose.model("users", schema, 'users');
 
 module.exports = {users}
+
+/*
+mongoose.connect('mongodb+srv://MatiasRivas:okayibelieveyou@prueba-db.jozch.gcp.mongodb.net/proyecto-modulo3_backend?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+})
+*/

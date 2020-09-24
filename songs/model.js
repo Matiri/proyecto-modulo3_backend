@@ -8,7 +8,7 @@ var schema = new Schema({
     duration:String,
     artist: String
 }, {collection: 'songs'})
-
+// una base de datos con dos colecciones
 mongoose.connect('mongodb+srv://MatiasRivas:okayibelieveyou@prueba-db.jozch.gcp.mongodb.net/songs?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
