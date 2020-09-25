@@ -11,7 +11,7 @@ const validateUser = (user) => {
 
 // GET url-base -> devuelve lista de usuarios.
 const listUsers = async(req, res) => {
-    var getUsers = await users.find({});
+    var getUsers = await users.find({}).populate('favorite');
     if(getUsers.length > 0){
         res.send(getUsers)
     } else {
@@ -36,7 +36,7 @@ const removeFromFavorites = async(req, res) => {
     var songName = req.params.songname;
     var getFavorite = await users.find({firstName: userName, favorites: {name: songName}});
     if(getFavorite.length > 0){
-        users
+        
     }
 }
 
@@ -58,15 +58,21 @@ const addUser = (req, res) => {
 
 // PUT url-base/:username -> editar datos de usuario.
 const editUser = (req, res) => {
-    var userName = req.params.username;
+    var userName = req.params.firstName;
     var newUser = new users(req.body);
 
     if(validateUser(newUser) == true) {
-        users.updateOne({firstName: userName}, newUser, function(err, docs){
+        users.updateOne({firstName: userName}, {
+            firstName: newUser.firstName,
+            lastName: newUser.lastName,
+            email: newUser.email,
+            }, function(err, obj){
             if(err){
+                console.log(obj);
                 res.status(400).send("Fallo edición de usuario!")
             } else {
-                res.send("Edición exitosa!").send(docs);
+                console.log(obj)
+                res.send("Edición exitosa!");
             }
         })
     }

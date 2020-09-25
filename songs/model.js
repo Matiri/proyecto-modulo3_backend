@@ -7,14 +7,9 @@ var schema = new Schema({
     album: String,
     duration:String,
     artist: String
-}, {collection: 'songs'})
-// una base de datos con dos colecciones
-mongoose.connect('mongodb+srv://MatiasRivas:okayibelieveyou@prueba-db.jozch.gcp.mongodb.net/songs?retryWrites=true&w=majority', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
 })
+// una base de datos con dos colecciones
 
-var songs = mongoose.model('users', schema, 'users');
+var songs = mongoose.model('Song', schema);
 
 module.exports = {songs}
