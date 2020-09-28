@@ -35,28 +35,31 @@ const addSong = (req, res) => {
     }
 }
 
-// PUT url-base/:songname -> editar datos de canción.
+// PUT url-base/songs/:songname -> editar datos de canción.
 const editSong = (req, res) => {
+    console.log('ngifnyg')
     var songName = req.params.songname;
     var newSong = new songs(req.body);
-
+    console.log('diughdsg')
     if(validateSong(newSong) == true){
-        users.updateOne({name: songName}, newSong, function(err, docs){
+        songs.updateOne({name: songName}, newSong, function(err){
             if(err){
+                console.log('sgohfohb')
                 res.status(400).send("Fallo edición de canción!")
             } else {
-                res.send("Edición exitosa!").send(docs);
+                console.log('ngpjupguj');
+                res.send("Edición exitosa!");
             }
         })
     }
 }
 
-// DELETE url-base/:songname -> eliminar canción.
+// DELETE url-base/songs/:songname -> eliminar canción.
 const deleteSong = (req, res) => {
     var songName = req.params.songname;
     songs.deleteOne({name: songName}, (err) => {
         if(err){
-            res.status(400).send("Error")
+            res.status(400).send("Error");
         } else {
             res.send("Eliminación exitosa!");
         }

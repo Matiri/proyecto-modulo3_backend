@@ -1,5 +1,6 @@
 const express = require('express');
 const usersController = require('./users/controller');
+const songsController = require('./songs/controller');
 const mongoose = require('mongoose');
 var server = express();
 server.use(express.json());
@@ -19,6 +20,17 @@ server.route('/')
 server.route('/users')
     .post(usersController.addUser)
 
-server.route('/:username')
+server.route('/songs')
+    .get(songsController.listSongs)
+    .post(songsController.addSong)
+
+server.route('/users/:username')
     .put(usersController.editUser)
     .delete(usersController.deleteUser)
+
+server.route('/:username/songs/:songname')
+    .delete(usersController.removeFavorite)
+    
+server.route('/songs/:songname')
+    .put(songsController.editSong)
+    .delete(songsController.deleteSong)

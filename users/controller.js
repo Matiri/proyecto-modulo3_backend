@@ -66,6 +66,8 @@ const editUser = (req, res) => {
             firstName: newUser.firstName,
             lastName: newUser.lastName,
             email: newUser.email,
+            age: newUser.age,
+            favorite: newUser.favorite,
             }, function(err, obj){
             if(err){
                 console.log(obj);
@@ -81,6 +83,7 @@ const editUser = (req, res) => {
 // DELETE url-base/:username -> eliminar usuario.
 const deleteUser = (req, res) => {
     var userName = req.params.username;
+    console.log(userName)
     users.deleteOne({firstName: userName}, (err) => {
         if(err){
             res.status(400).send("Error")
@@ -90,12 +93,24 @@ const deleteUser = (req, res) => {
     })
 }
 
+// DELETE url-base/:username/songs/:songname -> sacar canción de favoritos.
+const removeFavorite = (req, res) => {
+    var data = {
+        "request":{
+            "user": req.params.username,
+            "song":req.params.songname
+        }
+    }
+    console.log(data);
+}
+
 module.exports = {
     listUsers,
     listFavoriteSongs,
     addUser,
     editUser,
-    deleteUser
+    deleteUser,
+    removeFavorite
 }
 
 /*  
