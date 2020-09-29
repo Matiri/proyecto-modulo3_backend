@@ -1,10 +1,15 @@
-name: "Silver Will"
+"name": "Silver Will",
+"album": "dsgsgh",
+"duration": "2:50",
+"artist": "fdhgjfodih"
+
+name: "Silver Will, Golden Wings"
 album: "dsgsgh"
 duration: "2:50"
 artist: "fdhgjfodih"
 
-firstName: "Matías"
-lastName: "Rivas"
-email: "fdhdagjpa"
-age: 22
-favorite: "5f6e420975488812bc3970ec"
+"firstName": "Matías",
+"lastName": "Rivas",
+"email": "fdhdagjpa",
+"age": 22,
+"favorite": "5f6e420975488812bc3970ec"

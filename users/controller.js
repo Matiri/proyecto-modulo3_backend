@@ -1,4 +1,5 @@
 const importModel = require('./model');
+const { get } = require('mongoose');
 var users = importModel.users;
 
 const validateUser = (user) => {
@@ -93,15 +94,56 @@ const deleteUser = (req, res) => {
     })
 }
 
-// DELETE url-base/:username/songs/:songname -> sacar canción de favoritos.
-const removeFavorite = (req, res) => {
-    var data = {
+// DELETE url-base/:username/songs/:songid -> sacar canción de favoritos.
+const removeFavorite = async(req, res) => {
+    /*var data = {
         "request":{
             "user": req.params.username,
-            "song":req.params.songname
+            "song": req.params.songid
         }
-    }
-    console.log(data);
+    }*/
+    var user = req.params.username;
+    var song = req.params.songid;
+    //console.log(data)
+    var getUsers = await users.find({firstName: user}).populate('favorite');
+    var getFavorite = getUsers.filter((element) => {
+        if(element.favorite.length > 0){
+            var favorite = element.favorite;
+            //console.log(favorite)
+            
+        } else {
+            res.send('No hay favoritos.')
+        }
+    });
+    //console.log(getFavorite);
+    /*getUsers.findById(song, (err, doc) => {
+        if(err){
+            console.log(err)
+            res.status(400).send('Error')  
+        } else {
+            console.log(doc)
+            res.send(doc);
+        }
+    })*/
+    /*
+    users.findById(userID, (err, doc) => {
+        if(err){
+            console.log(err)
+            res.status(400).send('Error')  
+        } else {
+            console.log(doc)
+            res.send(doc);
+        }
+    })*/
+
+    /*
+    targetUser.findByIdAndDelete(data.request.song, (err) => {
+        if(err){
+            res.status(400).send('Error')
+        } else {
+            res.send('Canción eliminada de favoritos.');
+        }
+    })*/
 }
 
 module.exports = {
