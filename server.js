@@ -1,10 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const usersController = require('./users/controller');
 const songsController = require('./songs/controller');
 const mongoose = require('mongoose');
 var server = express();
 server.use(express.json());
-server.listen(3000);
+server.use(cors())
+server.listen(4000);
 
 // connect
 mongoose.connect('mongodb+srv://MatiasRivas:okayibelieveyou@prueba-db.jozch.gcp.mongodb.net/proyecto-modulo3_backend?retryWrites=true&w=majority', {
