@@ -15,7 +15,6 @@ mongoose.connect('mongodb+srv://MatiasRivas:okayibelieveyou@prueba-db.jozch.gcp.
     useFindAndModify: false
 })
 
-// route.js - rutas
 server.route('/')
     .get(usersController.listUsers)
 
