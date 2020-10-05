@@ -1,5 +1,4 @@
 const importModel = require('./model');
-const { get } = require('mongoose');
 var users = importModel.users;
 
 const validateUser = (user) => {
@@ -23,23 +22,16 @@ const listUsers = async(req, res) => {
 // GET url-base/:username/songs -> dirigido a users para mostrar lista de canciones favoritas.
 const listFavoriteSongs = async(req, res) => {
     var userName = req.params.username;
-    var getUser = await users.find({firstName: userName});
-    if(getUser.length > 0){
-        res.send(getUser.favorite)
-    } else {
-        res.status(404).send("Este usuario no tiene canciones favoritas.")
-    }
+    var getUser = await users.find({firstName: userName}).populate('favorite');
+    getUser.map(user => {
+        if(getUser.length > 0){
+            res.send(user.favorite)
+        } else {
+            res.status(404).send("Este usuario no tiene favoritos.") 
+        }
+    })
 }
 
-// DELETE url-base/:username/songs/:songname -> sacar canción de favoritos.
-const removeFromFavorites = async(req, res) => {
-    var userName = req.params.username;
-    var songName = req.params.songname;
-    var getFavorite = await users.find({firstName: userName, favorites: {name: songName}});
-    if(getFavorite.length > 0){
-        
-    }
-}
 
 // POST url-base/users -> agregar usuario mientras satisfaga el schema de users.
 const addUser = (req, res) => {
@@ -84,7 +76,6 @@ const editUser = (req, res) => {
 // DELETE url-base/:username -> eliminar usuario.
 const deleteUser = (req, res) => {
     var userName = req.params.username;
-    console.log(userName)
     users.deleteOne({firstName: userName}, (err) => {
         if(err){
             res.status(400).send("Error")
@@ -94,7 +85,7 @@ const deleteUser = (req, res) => {
     })
 }
 
-// DELETE url-base/:username/songs/:songid -> sacar canción de favoritos.
+// DELETE url-base/:username/songs/:songid -> sacar canción de favoritos. 
 const removeFavorite = async(req, res) => {
     /*var data = {
         "request":{
@@ -103,8 +94,13 @@ const removeFavorite = async(req, res) => {
         }
     }*/
     var user = req.params.username;
-    var song = req.params.songid;
-    //console.log(data)
+    var songid = req.params.songid;
+    var getUser = await users.find({firstName: user}).populate('favorite');
+    getUser.map(user => {
+        let favorite = user.favorite;
+        console.log(favorite)
+    })
+    /*
     var getUsers = await users.find({firstName: user}).populate('favorite');
     var getFavorite = getUsers.filter((element) => {
         if(element.favorite.length > 0){

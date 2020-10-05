@@ -29,6 +29,9 @@ server.route('/users/:username')
     .put(usersController.editUser)
     .delete(usersController.deleteUser)
 
+server.route('/:username/songs')
+    .get(usersController.listFavoriteSongs)
+
 server.route('/:username/songs/:songid')
     .delete(usersController.removeFavorite)
     
